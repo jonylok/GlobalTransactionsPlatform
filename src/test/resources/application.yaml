@@ -1,11 +1,10 @@
 spring:
   profiles: sys
   datasource:
-    driverClassName: net.sourceforge.jtds.jdbc.Driver
-    url: ${PSD2_DB_URL}
-    username: ${PSD2_DB_USER}
-    password: ${PSD2_DB_PASS}
-    initialize: false
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:businessplan_api_db;TRACE_LEVEL_FILE\=0
+    username: sa
+    password: 
   jpa:
     hibernate:
       naming:

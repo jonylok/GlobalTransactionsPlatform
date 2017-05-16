@@ -1,28 +1,30 @@
 package global.transactions.domain;
 
-import javax.persistence.Column;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 @Entity
-@Table(name = "tbl_Customer", schema="dbo")
 public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "CUSTOMER_NO")
 	private String id;
-	@Column(name = "FIRST_NAME")
 	private String firstName;
-	@Column(name = "LAST_NAME")
 	private String lastName;
-	@Column(name = "EMAIL_ADDRESS")
 	private String email;
-	@Column(name = "MOBILE")
 	private String phoneNumber;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+	private List<Account> accounts;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "from")
+	private List<Transaction> outTransactions;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "to")
+	private List<Transaction> inTransactions;
 		
 	public Customer() {
 	}
@@ -66,4 +68,29 @@ public class Customer {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
+
+	public List<Transaction> getOutTransactions() {
+		return outTransactions;
+	}
+
+	public void setOutTransactions(List<Transaction> outTransactions) {
+		this.outTransactions = outTransactions;
+	}
+
+	public List<Transaction> getInTransactions() {
+		return inTransactions;
+	}
+
+	public void setInTransactions(List<Transaction> inTransactions) {
+		this.inTransactions = inTransactions;
+	}
+		
 }
