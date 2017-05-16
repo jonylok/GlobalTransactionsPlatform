@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+	<Properties>
+		<Property name="filename">target/clientTeamsAPI-test.log</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<RollingFile name="RollingFile" fileName="${filename}"
+			filePattern="target/rollingTestLogs/test_log-%i.log.gz">
+			<PatternLayout>
+				<pattern>%d %p %c{1.} [%t] %m%n</pattern>
+			</PatternLayout>
+			<SizeBasedTriggeringPolicy size="5MB" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="debug">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+		<Logger name="log4j.logger.httpclient.wire" level="debug" >
+            <appender-ref ref="Console" level="debug"/>
+            <appender-ref ref="RollingFile" level="debug"/>
+        </Logger>
+		<Logger name="seb.api.app.ClientTeamsPreparatorTest" level="debug" >
+            <appender-ref ref="Console" level="error"/>
+        </Logger>
+	</Loggers>
+</Configuration>
