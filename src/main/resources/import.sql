@@ -1,0 +1,6 @@
+INSERT INTO Customer (id, firstName, lastName, email, phoneNumber) VALUES (4404246904, 'Pennie', 'Gorevan', '28@sebanken.nu', '08004041')
+INSERT INTO Customer (id, firstName, lastName, email, phoneNumber) VALUES (4501223618, 'Rob', 'Schule', 'schulerob@gmail.com', '37061743092')
+INSERT INTO Customer (id, firstName, lastName, email, phoneNumber) VALUES (4004566784, 'Mikael', 'Olson', 'mikaleolson@gmail.com', '08004041')
+INSERT INTO Customer (id, firstName, lastName, email, phoneNumber) VALUES (4474578886, 'Long', 'Friel', '29@sebanken.nu', '08004041')
+INSERT INTO Customer (id, firstName, lastName, email, phoneNumber) VALUES (3466467896, 'Taher', 'Brereton', '30@sebanken.nu', '08004041')
+INSERT INTO Customer (id, firstName, lastName, email, phoneNumber) VALUES (4656788999, 'Criag', 'Cuttler', '31@sebanken.nu', '08004041')
