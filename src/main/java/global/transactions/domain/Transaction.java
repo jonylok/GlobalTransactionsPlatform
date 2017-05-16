@@ -17,11 +17,11 @@ public class Transaction {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fromCustomer", nullable = false)
-	private Customer from;
+	@JoinColumn(name = "fromAccount", nullable = false)
+	private Account from;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "toCustomer", nullable = false)
-	private Customer to;
+	@JoinColumn(name = "toAccount", nullable = false)
+	private Account to;
 	private BigDecimal amount;
 	private Date date;
 	
@@ -31,16 +31,16 @@ public class Transaction {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Customer getFrom() {
+	public Account getFrom() {
 		return from;
 	}
-	public void setFrom(Customer from) {
+	public void setFrom(Account from) {
 		this.from = from;
 	}
-	public Customer getTo() {
+	public Account getTo() {
 		return to;
 	}
-	public void setTo(Customer to) {
+	public void setTo(Account to) {
 		this.to = to;
 	}
 	public BigDecimal getAmount() {

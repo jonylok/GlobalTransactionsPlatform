@@ -1,6 +1,7 @@
 package global.transactions.domain;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Account {
@@ -19,6 +21,10 @@ public class Account {
 	@JoinColumn(name = "customerId", nullable = false)
 	private Customer customer;
 	private BigDecimal balance;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "from")
+	private List<Transaction> outTransactions;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "to")
+	private List<Transaction> inTransactions;
 	
 	public String getId() {
 		return id;
@@ -38,4 +44,17 @@ public class Account {
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
+	public List<Transaction> getOutTransactions() {
+		return outTransactions;
+	}
+	public void setOutTransactions(List<Transaction> outTransactions) {
+		this.outTransactions = outTransactions;
+	}
+	public List<Transaction> getInTransactions() {
+		return inTransactions;
+	}
+	public void setInTransactions(List<Transaction> inTransactions) {
+		this.inTransactions = inTransactions;
+	}
+	
 }

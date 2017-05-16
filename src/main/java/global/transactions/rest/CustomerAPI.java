@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import global.transactions.service.CustomerService;
 
 @RestController
-public class CustomerApi {
+public class CustomerAPI {
 		
 	@Autowired
 	private CustomerService customerService;

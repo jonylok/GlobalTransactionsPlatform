@@ -21,10 +21,6 @@ public class Customer {
 	private String phoneNumber;
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
 	private List<Account> accounts;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "from")
-	private List<Transaction> outTransactions;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "to")
-	private List<Transaction> inTransactions;
 		
 	public Customer() {
 	}
@@ -75,22 +71,6 @@ public class Customer {
 
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
-	}
-
-	public List<Transaction> getOutTransactions() {
-		return outTransactions;
-	}
-
-	public void setOutTransactions(List<Transaction> outTransactions) {
-		this.outTransactions = outTransactions;
-	}
-
-	public List<Transaction> getInTransactions() {
-		return inTransactions;
-	}
-
-	public void setInTransactions(List<Transaction> inTransactions) {
-		this.inTransactions = inTransactions;
 	}
 		
 }
