@@ -25,25 +25,36 @@ public class TransactionService {
 	private AccountRepository accountRepository;
 	
 
-	public Boolean executeTransaction(String from, String to, BigDecimal amount) {
+	public String createTransaction(String from) {
+		int code = UtilService.generatePasscode();
+		Account fromAccount = EmailValidator.validate(from) ? accountRepository.findByCustomerEmail(from)
+				: accountRepository.findByCustomerPhoneNumber(from);
+		Transaction transaction = new Transaction(fromAccount, code);
+		transaction = transactionRepository.saveAndFlush(transaction);
+		return transaction.getId();
+	}
+	
+	public Boolean executeTransaction(String id, String code, String from, String to, BigDecimal amount) {
 
 		Boolean transactionComplete = false;
 		try {
-			Account fromAccount = EmailValidator.validate(from) ? accountRepository.findByCustomerEmail(from)
-					: accountRepository.findByCustomerPhoneNumber(from);
-			Account toAccount = EmailValidator.validate(to) ? accountRepository.findByCustomerEmail(to)
-					: accountRepository.findByCustomerPhoneNumber(to);
-			fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
-			toAccount.setBalance(toAccount.getBalance().add(amount));
-			accountRepository.save(fromAccount);
-			accountRepository.save(toAccount);
-			Transaction newTransaction = new Transaction();
-			newTransaction.setFrom(fromAccount);
-			newTransaction.setTo(toAccount);
-			newTransaction.setAmount(amount);
-			newTransaction.setDate(new Date());
-			transactionRepository.save(newTransaction);
-			transactionComplete = true;
+			Transaction transaction = transactionRepository.findById(id);
+			if(code.contentEquals(transaction.getCode())){
+				Account fromAccount = EmailValidator.validate(from) ? accountRepository.findByCustomerEmail(from)
+						: accountRepository.findByCustomerPhoneNumber(from);
+				Account toAccount = EmailValidator.validate(to) ? accountRepository.findByCustomerEmail(to)
+						: accountRepository.findByCustomerPhoneNumber(to);
+				fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
+				toAccount.setBalance(toAccount.getBalance().add(amount));
+				accountRepository.save(fromAccount);
+				accountRepository.save(toAccount);			
+				transaction.setFrom(fromAccount);
+				transaction.setTo(toAccount);
+				transaction.setAmount(amount);
+				transaction.setDate(new Date());
+				transactionRepository.save(transaction);
+				transactionComplete = true;
+			}
 
 		} catch (Exception ex) {
 			logger.error("Error in transaction from " + from + " to " + to + " amount " + amount, ex);

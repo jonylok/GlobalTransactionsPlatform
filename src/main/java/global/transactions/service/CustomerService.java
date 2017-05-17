@@ -28,8 +28,8 @@ public class CustomerService {
 		return customers.size()>0;
 	}
 	
-	public Boolean sendSMS(String mobile) {
-		UtilService.sendSMS(mobile);
+	public Boolean sendSMS(String phoneNumber) {
+		UtilService.sendSMS(phoneNumber);
 		return false;
 	}
 
