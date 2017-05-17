@@ -11,6 +11,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import global.transactions.dto.EmailDTO;
+import global.transactions.dto.PhoneNumberDTO;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("sys")
@@ -25,13 +28,29 @@ public class CustomerTest {
 		String testEmail1 = "aaaa@bbb.se";
 		String testEmail2 = "28@sebanken.nu";
 		
-		Boolean isCustomerEmail = restTemplate.getForObject("/IsCustomerEmail/" + testEmail1 + "/",
-				Boolean.class);
-		assertThat(isCustomerEmail.booleanValue()).isEqualTo(false);
+		EmailDTO isCustomerEmail = restTemplate.getForObject("/IsCustomerEmail/" + testEmail1 + "/",
+				EmailDTO.class);
+		assertThat(isCustomerEmail.isActive()).isEqualTo(false);
 		
 		isCustomerEmail = restTemplate.getForObject("/IsCustomerEmail/" + testEmail2 + "/",
-				Boolean.class);
-		assertThat(isCustomerEmail.booleanValue()).isEqualTo(true);
+				EmailDTO.class);
+		assertThat(isCustomerEmail.isActive()).isEqualTo(true);
+
+	}
+	
+	@Test
+	public void testIsCustomerPhoneNumber() {
+		
+		String testPhone1 = "1234567";
+		String testPhone2 = "37061743092";
+		
+		PhoneNumberDTO isCustomerPhone = restTemplate.getForObject("/IsCustomerPhoneNumber/" + testPhone1 + "/",
+				PhoneNumberDTO.class);
+		assertThat(isCustomerPhone.isActive()).isEqualTo(false);
+		
+		isCustomerPhone = restTemplate.getForObject("/IsCustomerPhoneNumber/" + testPhone2 + "/",
+				PhoneNumberDTO.class);
+		assertThat(isCustomerPhone.isActive()).isEqualTo(true);
 
 	}
 }
