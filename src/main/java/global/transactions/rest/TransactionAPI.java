@@ -18,16 +18,9 @@ public class TransactionAPI {
 	@Autowired
 	private TransactionService transactionService;
 	
-//	@CrossOrigin
-//	@RequestMapping(value = "Transaction/{id}/{code}/{from}/{to}/{amount}/", method = { RequestMethod.PUT })
-//	public ResponseEntity<String> transactionExecute(@PathVariable String id, @PathVariable String code, @PathVariable String from, @PathVariable String to, @PathVariable BigDecimal amount) {
-//		Boolean transactionExecuted = transactionService.executeTransaction(id, code, from, to, amount);
-//		return transactionExecuted==true?new ResponseEntity<>(HttpStatus.CREATED):new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//	}
-	
 	@CrossOrigin
 	@RequestMapping(value = "/Transaction", method = { RequestMethod.PUT })
-	public ResponseEntity<String> transactionExecute(@RequestBody global.transactions.dto.Transaction transaction) {
+	public ResponseEntity<String> transactionExecute(@RequestBody global.transactions.dto.TransactionDTO transaction) {
 		Boolean transactionExecuted = transactionService.executeTransaction(transaction.getId(), transaction.getCode(), transaction.getFrom(), transaction.getTo(), transaction.getAmount());
 		return transactionExecuted==true?new ResponseEntity<>(HttpStatus.CREATED):new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}

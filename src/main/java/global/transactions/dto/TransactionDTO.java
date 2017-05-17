@@ -2,7 +2,7 @@ package global.transactions.dto;
 
 import java.math.BigDecimal;
 
-public class Transaction {
+public class TransactionDTO {
 
 	private String id;
 	private String code;
@@ -10,7 +10,7 @@ public class Transaction {
 	private String to;
 	private BigDecimal amount;
 	
-	public Transaction() {
+	public TransactionDTO() {
 	}
 
 	public String getId() {
