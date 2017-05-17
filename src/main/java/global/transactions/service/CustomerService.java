@@ -23,6 +23,13 @@ public class CustomerService {
 		return customers.size()>0;
 	}
 
-
-
+	public Boolean isCustomerMobile(String mobile) {
+		List<Customer> customers = customerRepository.findByMobile(mobile);
+		return customers.size()>0;
+	}
+	
+	public Boolean sendSMS(String mobile) {
+		UtilService.sendSMS(mobile);
+		return false;
+	}
 }

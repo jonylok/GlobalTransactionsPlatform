@@ -19,5 +19,10 @@ public class CustomerAPI {
 		Boolean isCustomerEmail = customerService.isCustomerEmail(email);
 		return isCustomerEmail;
 	}
-
+	
+	@RequestMapping(value = "IsCustomerMobile/{mobile}/", method = { RequestMethod.GET })
+	public Boolean isCustomerMobile(@PathVariable String mobile) {
+		Boolean isCustomerMobile = customerService.isCustomerMobile(mobile);
+		return isCustomerMobile;
+	}
 }
