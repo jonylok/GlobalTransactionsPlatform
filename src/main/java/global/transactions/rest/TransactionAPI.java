@@ -18,10 +18,16 @@ public class TransactionAPI {
 	@Autowired
 	private TransactionService transactionService;
 
-	@RequestMapping(value = "Transaction/{from}/{to}/{amount}/", method = { RequestMethod.POST })
-	public ResponseEntity<String> Transaction(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal amount) {
-		Boolean transactionExecuted = transactionService.executeTransaction(from, to, amount);
+	@RequestMapping(value = "Transaction/{id}/{code}/{from}/{to}/{amount}/", method = { RequestMethod.PUT })
+	public ResponseEntity<String> transactionExecute(@PathVariable String id, @PathVariable String code, @PathVariable String from, @PathVariable String to, @PathVariable BigDecimal amount) {
+		Boolean transactionExecuted = transactionService.executeTransaction(id, code, from, to, amount);
 		return transactionExecuted==true?new ResponseEntity<>(HttpStatus.CREATED):new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}
 
+	@RequestMapping(value = "Transaction/{from}/", method = { RequestMethod.POST })
+	public ResponseEntity<String> transactionCreate(@PathVariable String from) {
+		String transactionId = transactionService.createTransaction(from);
+		ResponseEntity<String> response = new ResponseEntity<String>(transactionId, HttpStatus.CREATED);
+		return response;
+	}
 }
