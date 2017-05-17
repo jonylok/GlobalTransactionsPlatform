@@ -9,15 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Account {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customerId", nullable = false)
 	private Customer customer;
 	private BigDecimal balance;
@@ -26,6 +26,8 @@ public class Account {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "to")
 	private List<Transaction> inTransactions;
 	
+	public Account() {
+	}
 	public String getId() {
 		return id;
 	}

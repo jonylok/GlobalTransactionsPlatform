@@ -7,7 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Customer {
@@ -19,8 +19,8 @@ public class Customer {
 	private String lastName;
 	private String email;
 	private String phoneNumber;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
-	private List<Account> accounts;
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "customer")
+	private Account account;
 		
 	public Customer() {
 	}
@@ -65,12 +65,12 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public List<Account> getAccounts() {
-		return accounts;
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 		
 }
