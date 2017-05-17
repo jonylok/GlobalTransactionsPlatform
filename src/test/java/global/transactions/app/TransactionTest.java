@@ -45,24 +45,24 @@ public class TransactionTest {
 
 	}
 	
-	@Test
-	public void testTransaction(){
-		String testEmailFrom = "schulerob@gmail.com";
-		String testEmailTo = "28@sebanken.nu";
-		BigDecimal amount = new BigDecimal("100.00");
-		long transactionCountBefore = transactionService.getTransactionCount();
-		BigDecimal balanceTargetBefore = transactionService.getAccountBalanceByEmail(testEmailTo);
-		BigDecimal balanceSourceBefore = transactionService.getAccountBalanceByEmail(testEmailFrom);
-		String id = transactionService.createTransaction(testEmailFrom);
-		Transaction transaction = transactionService.getTransactionById(id);
-		boolean transactionComplete = transactionService.executeTransaction(id, transaction.getCode(), testEmailFrom, testEmailTo, amount);
-		BigDecimal balanceTargetAfter = transactionService.getAccountBalanceByEmail(testEmailTo);
-		BigDecimal balanceSourceAfter = transactionService.getAccountBalanceByEmail(testEmailFrom);
-		long transactionCountAfter = transactionService.getTransactionCount();
-		assertThat(balanceTargetBefore.add(amount)).isEqualTo(balanceTargetAfter);
-		assertThat(balanceSourceBefore.subtract(amount)).isEqualTo(balanceSourceAfter);
-		assertThat(transactionCountBefore).isEqualTo(transactionCountAfter-1);
-		assertThat(transactionComplete).isEqualTo(true);
-
-	}
+//	@Test
+//	public void testTransaction(){
+//		String testEmailFrom = "schulerob@gmail.com";
+//		String testEmailTo = "28@sebanken.nu";
+//		BigDecimal amount = new BigDecimal("100.00");
+//		long transactionCountBefore = transactionService.getTransactionCount();
+//		BigDecimal balanceTargetBefore = transactionService.getAccountBalanceByEmail(testEmailTo);
+//		BigDecimal balanceSourceBefore = transactionService.getAccountBalanceByEmail(testEmailFrom);
+//		String id = transactionService.createTransaction(testEmailFrom);
+//		Transaction transaction = transactionService.getTransactionById(id);
+//		boolean transactionComplete = transactionService.executeTransaction(id, transaction.getCode(), testEmailFrom, testEmailTo, amount);
+//		BigDecimal balanceTargetAfter = transactionService.getAccountBalanceByEmail(testEmailTo);
+//		BigDecimal balanceSourceAfter = transactionService.getAccountBalanceByEmail(testEmailFrom);
+//		long transactionCountAfter = transactionService.getTransactionCount();
+//		assertThat(balanceTargetBefore.add(amount)).isEqualTo(balanceTargetAfter);
+//		assertThat(balanceSourceBefore.subtract(amount)).isEqualTo(balanceSourceAfter);
+//		assertThat(transactionCountBefore).isEqualTo(transactionCountAfter-1);
+//		assertThat(transactionComplete).isEqualTo(true);
+//
+//	}
 }
