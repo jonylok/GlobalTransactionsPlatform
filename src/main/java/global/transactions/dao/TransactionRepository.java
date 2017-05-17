@@ -7,6 +7,6 @@ import global.transactions.domain.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, String>{
 
-	Transaction findById(@Param(value = "phoneNumber") String phoneNumber);
+	Transaction findById(@Param(value = "id") String id);
 
 }

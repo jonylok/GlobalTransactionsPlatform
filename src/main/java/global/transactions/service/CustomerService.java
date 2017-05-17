@@ -27,10 +27,5 @@ public class CustomerService {
 		List<Customer> customers = customerRepository.findByPhoneNumber(phoneNumber);
 		return customers.size()>0;
 	}
-	
-	public Boolean sendSMS(String phoneNumber) {
-		UtilService.sendSMS(phoneNumber);
-		return false;
-	}
 
 }

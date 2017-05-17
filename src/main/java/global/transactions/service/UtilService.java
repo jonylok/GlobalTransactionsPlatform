@@ -3,6 +3,8 @@ package global.transactions.service;
 import java.util.Random;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -10,10 +12,14 @@ import org.springframework.web.client.RestTemplate;
 
 public class UtilService {
 	
-	private static final String urlPost = "api.vertexsms.com/sms";
+	private static final String urlPost = "http://api.vertexsms.com/sms";
 	
-	public static Boolean sendSMS(String mobile) {
-		String body = "{ \"to\": \"37069977165\", \"from\": \"Test\", \"message\": \"123456\" }";
+	public static Boolean sendSMS(String phoneNumber, String code) {
+		String body = "{ \"to\": \""
+				+ phoneNumber
+				+ "\", \"from\": \"Test\", \"message\": \""
+				+ code
+				+ "\" }";
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		headers.add("Host","api.vertexsms.com");
 		headers.add("Accept","application/json");
@@ -25,7 +31,9 @@ public class UtilService {
 
 		HttpEntity<String> request = new HttpEntity<String>(body, headers);
 
-		return restTemplate.postForObject(urlPost, request, Boolean.class);
+		ResponseEntity<String> smsPostResponse = restTemplate.exchange(urlPost, HttpMethod.POST, request, String.class);
+
+		return smsPostResponse.getStatusCode().is2xxSuccessful();
 	}
 	
 	public static int generatePasscode() {

@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import global.transactions.dao.AccountRepository;
+import global.transactions.dao.CustomerRepository;
 import global.transactions.dao.TransactionRepository;
 import global.transactions.domain.Account;
+import global.transactions.domain.Customer;
 import global.transactions.domain.Transaction;
 import global.transactions.util.EmailValidator;
 
@@ -23,12 +25,16 @@ public class TransactionService {
 	private TransactionRepository transactionRepository;
 	@Autowired
 	private AccountRepository accountRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
 	
 
 	public String createTransaction(String from) {
 		int code = UtilService.generatePasscode();
 		Account fromAccount = EmailValidator.validate(from) ? accountRepository.findByCustomerEmail(from)
 				: accountRepository.findByCustomerPhoneNumber(from);
+		Customer fromCustomer = EmailValidator.validate(from) ? customerRepository.findByEmail(from).get(0) : customerRepository.findByPhoneNumber(from).get(0);
+		UtilService.sendSMS(fromCustomer.getPhoneNumber(), String.valueOf(code));
 		Transaction transaction = new Transaction(fromAccount, code);
 		transaction = transactionRepository.saveAndFlush(transaction);
 		return transaction.getId();
@@ -70,6 +76,10 @@ public class TransactionService {
 	
 	public long getTransactionCount(){
 		return transactionRepository.count();
+	}
+	
+	public Transaction getTransactionById(String id){
+		return transactionRepository.findById(id);
 	}
 
 }
