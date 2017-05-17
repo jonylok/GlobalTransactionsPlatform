@@ -9,6 +9,6 @@ import global.transactions.domain.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, String>{
 
 	List<Customer> findByEmail(String email);
-	
-	List<Customer> findByMobile(String mobile);
+
+	List<Customer> findByPhoneNumber(String phoneNumber);
 }

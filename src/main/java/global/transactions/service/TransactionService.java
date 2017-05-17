@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import global.transactions.dao.AccountRepository;
 import global.transactions.dao.TransactionRepository;
@@ -27,12 +26,7 @@ public class TransactionService {
 	
 
 	public Boolean executeTransaction(String from, String to, BigDecimal amount) {
-<<<<<<< HEAD
-		//List<Customer> customers = transactionRepositoryfindByEmail(email);
-		return true;
-	}
-}
-=======
+
 		Boolean transactionComplete = false;
 		try {
 			Account fromAccount = EmailValidator.validate(from) ? accountRepository.findByCustomerEmail(from)
@@ -68,4 +62,4 @@ public class TransactionService {
 	}
 
 }
->>>>>>> 0f554f0c4bf80e8cf4c6711fd96b74fda3f98482
+
